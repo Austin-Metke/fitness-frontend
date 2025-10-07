@@ -6,26 +6,31 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { useSession } from '@/hooks/ctx';
+//import { useSession } from '@/hooks/ctx';
 import { getProfile } from '@/db/profile';
 import { ProfilePic } from '@/components/ProfilePic';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const { session, isLoading } = useSession();
+  //const { session, isLoading } = useSession();
 
+  /*
   if (isLoading) {
     return null;
   }
+    */
 
   // Only require authentication within the (tabs) group's layout as users
   // need to be able to access the (auth) group and sign in again.
+  /*
   if (!session) {
     // On web, static rendering will stop here as the user is not authenticated
     // in the headless Node process that the pages are rendered in.
     return <Redirect href="/auth" />;
   }
+  */
 
+  /*
   useEffect(() => {
     getProfile(session).then((res) => {
       if (res && session) {
@@ -37,7 +42,8 @@ export default function TabLayout() {
       console.error(err)
     })
   }, [])
-
+  */
+ 
   return (
     <Tabs
       screenOptions={{
@@ -71,7 +77,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <ProfilePic tab/>,
+          //tabBarIcon: ({ color }) => <ProfilePic tab/>,
         }}
       />
     </Tabs>

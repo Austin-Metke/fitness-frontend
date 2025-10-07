@@ -1,6 +1,7 @@
+/*
 import { useState, useEffect } from 'react';
 import { getProfile } from '@/db/profile';
-import { useSession } from './ctx';
+//import { useSession } from './ctx';
 
 const useProfile = () => {
   const { session } = useSession();
@@ -23,3 +24,5 @@ const useProfile = () => {
 };
 
 export default useProfile;
+
+*/
