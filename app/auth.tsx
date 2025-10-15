@@ -4,8 +4,10 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 //import { useSession } from "@/hooks/ctx";
 import { router } from "expo-router";
+//import { function } from "@/hooks/ctx"
 
 import FlexZoneHeader from "@/components/FlexZoneHeader";
+import Auth from "@/components/Auth";
 
 export default function AuthScreen() {
   //const { signIn } = useSession();
@@ -13,7 +15,8 @@ export default function AuthScreen() {
   
   const handleSignIn = async () => {
     //await signIn();
-    router.replace("/");
+
+    //router.replace("/");
   };
 
 
@@ -21,10 +24,12 @@ export default function AuthScreen() {
     <ThemedView style={styles.container}>
       <FlexZoneHeader />
       <ThemedView>
-        <Button
+        <ThemedText>Sign In with Google</ThemedText>
+        <Auth/>
+        {/* <Button
           title="Sign In With Google"
           onPress={handleSignIn}
-        />
+        /> */}
       </ThemedView>
       <ThemedView>
         <ThemedText type="default">Group 8 - CST438</ThemedText>

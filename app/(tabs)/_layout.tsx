@@ -12,6 +12,7 @@ import { ProfilePic } from '@/components/ProfilePic';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  return <Redirect href="/auth" />;
   //const { session, isLoading } = useSession();
 
   /*
