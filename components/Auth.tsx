@@ -3,10 +3,11 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import { createUser, getUserByGoogleId } from '@/db/user';
 
 export default function() {
     GoogleSignin.configure({
-        //webClientId: "442605191795-15h3f17jnsr1tbp5sbhu80mpqdn98qq5.apps.googleusercontent.com",
+        webClientId: "442605191795-15h3f17jnsr1tbp5sbhu80mpqdn98qq5.apps.googleusercontent.com",
         offlineAccess: false,
     });
 
@@ -18,7 +19,12 @@ export default function() {
                 try {
                     await GoogleSignin.hasPlayServices();
                     const userInfo = await GoogleSignin.signIn();
+                    const user = userInfo.data?.user;
+                    if(user) {
+                        const dbUser = await getUserByGoogleId(user.id);
+                    }
                     console.log(JSON.stringify(userInfo, null, 2));
+                    console.log(user?.id);
                 } catch(error: any) {
                     if(error.code === statusCodes.SIGN_IN_CANCELLED) {
                         console.log("err1")
