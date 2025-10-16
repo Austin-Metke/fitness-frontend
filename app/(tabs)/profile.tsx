@@ -2,30 +2,33 @@ import React from "react";
 import { Button, StyleSheet, TouchableOpacity } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
-//import { useSession } from "@/hooks/ctx";
-//import useProfile from "@/hooks/useProfile";
+import { useSession } from "@/hooks/ctx";
+import useProfile from "@/hooks/useProfile";
 import { ProfilePic } from "@/components/ProfilePic";
+import {getUserByGoogleId} from "@/db/user"
+
 
 export default function ProfileScreen() {
-  //const { signOut } = useSession();
-  //const { profile } = useProfile();
-  //console.log(profile);
+  const { signOut } = useSession();
+  const { profile } = useProfile();
+  console.log(profile);
+  //const user = 
 
   return (
     <ThemedView style={styles.container}>
-      {/*
-      <ProfilePic style={styles.profilePic} />
-      */}
+      {
+      /*<ProfilePic style={styles.profilePic} />*/
+      }
 
       <ThemedText type="title" style={styles.username}>
-        {/*profile?.user?.username*/}
+        {profile?.user?.username}
       </ThemedText>
 
       <ThemedText type="subtitle" style={styles.email}>
-        {/*profile?.user?.email*/}
+        {profile?.user?.email}
       </ThemedText>
 
-      <TouchableOpacity style={styles.button} /*onPress={signOut}*/>
+      <TouchableOpacity style={styles.button} onPress={signOut}>
         <ThemedText type="default" style={styles.buttonText}>
           Sign Out
         </ThemedText>
