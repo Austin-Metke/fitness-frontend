@@ -10,6 +10,7 @@ import { SessionProvider } from '@/hooks/ctx';
 import { initDB } from '@/db/init';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
+import { ProgressProvider } from '@/hooks/useProgress';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,11 +34,11 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style = {styles.container}>
       <SQLiteProvider databaseName='flexzone_database' onInit={initDB} >
-        <SessionProvider>
+        <ProgressProvider>
           <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <Slot />
           </ThemeProvider>
-        </SessionProvider>
+        </ProgressProvider>
       </SQLiteProvider>
     </GestureHandlerRootView>
     
