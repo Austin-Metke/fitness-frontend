@@ -1,8 +1,20 @@
-/*
+
+
 import { useContext, createContext, type PropsWithChildren, useEffect } from 'react';
 import { useStorageState } from './useStorageState';
 import { GoogleSignin, isErrorWithCode, isSuccessResponse, statusCodes } from '@react-native-google-signin/google-signin';
 import { createUser, getUserByGoogleId } from '@/db/user';
+
+type GoogleUser = {
+  id: string;
+  name?: string | null;
+  givenName?: string | null;
+  familyName?: string | null;
+  email: string;
+  photo?: string | null;
+};
+
+
 
 const AuthContext = createContext<{
   signIn: () => void;
@@ -31,7 +43,10 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState('session');
 
   useEffect(() => {
-    GoogleSignin.configure();
+    GoogleSignin.configure({
+        webClientId: "442605191795-15h3f17jnsr1tbp5sbhu80mpqdn98qq5.apps.googleusercontent.com",
+        offlineAccess: false,
+    });
   }, []);
 
   return (
@@ -44,17 +59,20 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
           // Check if the db has the user
           const dbUser = await getUserByGoogleId(user.id);
+          console.log('dbUser', dbUser)
+          //console.log('dbUser.id', dbUser.id?.toString() ?? null)
 
           if (dbUser) {
             // Set the session to be the userID
-            setSession(dbUser.id);
+            setSession(dbUser.id?.toString() ?? null);
+            console.log("session set")
           } else {
             // Create the user
             const newUser = await createUser({
               g_id: user.id,
               username: user.name || user.givenName + ' ' + user.familyName,
               email: user.email,
-              profile_pic: user.photo,
+              profile_pic: user.photo ?? null,
             });
             setSession(newUser.toString());
           }
@@ -76,15 +94,25 @@ export function SessionProvider({ children }: PropsWithChildren) {
   );
 }
 
-const googleSignIn = async () => {
+const googleSignIn = async(): Promise<GoogleUser | null> => {
   try {
     await GoogleSignin.hasPlayServices();
     const response = await GoogleSignin.signIn();
 
     if (isSuccessResponse(response)) {
-      return response.data.user;
+      const user = response.data.user;
+      return {
+        id: user.id,
+        name: user.name,
+        givenName: user.givenName,
+        familyName: user.familyName,
+        email: user.email,
+        photo: user.photo,
+      };
+
     } else {
       console.error('Sign in was cancelled');
+      return null;
     }
   } catch (error) {
     if (isErrorWithCode(error)) {
@@ -104,6 +132,6 @@ const googleSignIn = async () => {
     } else {
       console.error("An error occurred while signing in");
     }
+    return null;
   }
 }
-*/

@@ -13,3 +13,11 @@ export interface User {
     email: string,
     profile_pic: string | null
 }
+
+export interface UserInfo {
+    id: string,
+    g_id: string,
+    username: string,
+    email: string,
+    profile_pic: string | null
+}

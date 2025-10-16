@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { SQLiteProvider } from "expo-sqlite"
 import { useColorScheme } from '@/hooks/useColorScheme';
-//import { SessionProvider } from '@/hooks/ctx';
+import { SessionProvider } from '@/hooks/ctx';
 import { initDB } from '@/db/init';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
@@ -33,9 +33,11 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style = {styles.container}>
       <SQLiteProvider databaseName='flexzone_database' onInit={initDB} >
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Slot />
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Slot />
+          </ThemeProvider>
+        </SessionProvider>
       </SQLiteProvider>
     </GestureHandlerRootView>
     

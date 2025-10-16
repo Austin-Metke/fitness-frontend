@@ -9,11 +9,11 @@ import type { OnboardingForm } from "@/types/onboarding";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import FlexZoneHeader from "@/components/FlexZoneHeader";
-//import { useSession } from "@/hooks/ctx";
-//import useProfile from "@/hooks/useProfile";
+import { useSession } from "@/hooks/ctx";
+import useProfile from "@/hooks/useProfile";
 
 export default function OnboardingScreen() {
-    //const { session } = useSession();
+    const { session } = useSession();
     const { control, handleSubmit, formState: { errors }, register, reset } = useForm<OnboardingForm>({
         mode: 'onChange'
     });
@@ -25,7 +25,7 @@ export default function OnboardingScreen() {
             weight: data.weight,
             height: data.heightFeet * 12 + data.heightInches,
         });
-        //useProfile()
+        useProfile()
         router.replace("/");
     };
 
