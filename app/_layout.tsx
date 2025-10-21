@@ -34,17 +34,9 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style = {styles.container}>
       <SQLiteProvider databaseName='flexzone_database' onInit={initDB} >
-<<<<<<< HEAD
-        <ProgressProvider>
-          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <Slot />
-          </ThemeProvider>
-        </ProgressProvider>
-=======
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Slot />
         </ThemeProvider>
->>>>>>> parent of 405d47d (Merge pull request #7 from Austin-Metke/oauthRegistration)
       </SQLiteProvider>
     </GestureHandlerRootView>
     
