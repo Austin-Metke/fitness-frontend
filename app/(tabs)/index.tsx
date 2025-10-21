@@ -9,12 +9,12 @@ import {
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { HelloWave } from "@/components/HelloWave";
-import { useSession } from "@/hooks/ctx";
+//import { useSession } from "@/hooks/ctx";
 import { GoogleUser } from "@/types/user";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "@/types/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useProfile from "@/hooks/useProfile";
+//import useProfile from "@/hooks/useProfile";
 import { ProfilePic } from "@/components/ProfilePic";
 
 // Default profile picture (Replace later with Google Profile)
@@ -32,7 +32,7 @@ const workoutSplit = [
 ];
 
 export default function HomeScreen() {
-  const { profile } = useProfile();
+  //const { profile } = useProfile();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [workoutData, setWorkoutData] = useState(workoutSplit);
 
@@ -76,11 +76,11 @@ export default function HomeScreen() {
           </ThemedText>
           <HelloWave />
         </View>
-        {
+        {/*
         <View style={styles.headerRight}>
-          {/*<ProfilePic />*/}
+          <ProfilePic />
         </View>
-        }
+        */}
       </View>
 
       {/* Subheader Section */}

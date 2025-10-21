@@ -1,27 +1,28 @@
+/*
 import { useState, useEffect } from 'react';
 import { getProfile } from '@/db/profile';
-import { useSession } from './ctx';
-import type { Profile } from '@/types/profile';
+//import { useSession } from './ctx';
 
 const useProfile = () => {
   const { session } = useSession();
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    if (!session) {
-      setLoading(false);
-      return;
+    if (session) {
+      getProfile(session).then((res) => {
+        // console.log(res)
+        if (res) {
+          setProfile(res)
+        }
+      }).catch((err) => {
+        console.error(err)
+      })
     }
+  }, []);
 
-    setLoading(true);
-    getProfile(session)
-      .then((res) => setProfile(res ?? null))
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [session]);
-
-  return { profile, loading };
+  return { profile };
 };
 
 export default useProfile;
+
+*/

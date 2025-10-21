@@ -6,38 +6,44 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { useSession } from '@/hooks/ctx';
+//import { useSession } from '@/hooks/ctx';
 import { getProfile } from '@/db/profile';
-//import { ProfilePic } from '@/components/ProfilePic';
+import { ProfilePic } from '@/components/ProfilePic';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const { session, isLoading } = useSession();
+  //const { session, isLoading } = useSession();
 
-  // Fix Hook order: always call hooks at the top
-  useEffect(() => {
-    if (!session) return; // skip effect if not logged in
-
-    getProfile(session)
-      .then((res) => {
-        if (!res) {
-          router.push('/onboarding'); // new user → onboarding
-        }
-        // No need to push if profile exists — already on Tabs
-      })
-      .catch(console.error);
-  }, [session, router]);
-
-  // Wait for session to load
+  /*
   if (isLoading) {
     return null;
   }
+    */
 
-  // Redirect to auth if user is not logged in
+  // Only require authentication within the (tabs) group's layout as users
+  // need to be able to access the (auth) group and sign in again.
+  /*
   if (!session) {
+    // On web, static rendering will stop here as the user is not authenticated
+    // in the headless Node process that the pages are rendered in.
     return <Redirect href="/auth" />;
   }
+  */
 
+  /*
+  useEffect(() => {
+    getProfile(session).then((res) => {
+      if (res && session) {
+        router.push('/(tabs)')
+      } else {
+        router.push('/onboarding')
+      }
+    }).catch(err => {
+      console.error(err)
+    })
+  }, [])
+  */
+ 
   return (
     <Tabs
       screenOptions={{
@@ -46,11 +52,13 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
-          ios: { position: 'absolute' },
+          ios: {
+            // Use a transparent background on iOS to show the blur effect
+            position: 'absolute',
+          },
           default: {},
         }),
-      }}
-    >
+      }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -76,8 +84,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-          //tabBarIcon: ({ color, size }) => <ProfilePic tab size={size} color={color} />,
+          //tabBarIcon: ({ color }) => <ProfilePic tab/>,
         }}
       />
     </Tabs>

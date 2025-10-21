@@ -17,7 +17,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.flexzone1"
+      "package": "com.anonymous.flexzone"
     },
     "web": {
       "bundler": "metro",
@@ -39,13 +39,7 @@
         "@react-native-google-signin/google-signin"
       ],
       "expo-sqlite",
-      "expo-secure-store",
-      [
-        "@react-native-google-signin/google-signin",
-        {
-          "iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
-        }
-      ]
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

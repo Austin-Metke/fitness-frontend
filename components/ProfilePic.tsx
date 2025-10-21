@@ -7,7 +7,7 @@ export const ProfilePic = (tab: boolean) => {
 
     return (
         <Image source={
-            //profile?.user?.profile_pic ||
+            profile?.user?.profile_pic ||
             DEFAULT_PROFILE_PIC
         }
         style={tab ? $profilePic : {

@@ -17,10 +17,8 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
-# Ignore Android build artifacts, but not source files
-android/app/build/
-android/build/
-android/local.properties
+# build
+android
 
 # Metro
 .metro-health-check*
