@@ -12,31 +12,31 @@ import { getProfile } from '@/db/profile';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const { session, isLoading } = useSession();
+  // const { session, isLoading } = useSession();
 
-  // Fix Hook order: always call hooks at the top
-  useEffect(() => {
-    if (!session) return; // skip effect if not logged in
+  // // Fix Hook order: always call hooks at the top
+  // useEffect(() => {
+  //   if (!session) return; // skip effect if not logged in
 
-    getProfile(session)
-      .then((res) => {
-        if (!res) {
-          router.push('/onboarding'); // new user → onboarding
-        }
-        // No need to push if profile exists — already on Tabs
-      })
-      .catch(console.error);
-  }, [session, router]);
+  //   getProfile(session)
+  //     .then((res) => {
+  //       if (!res) {
+  //         router.push('/onboarding'); // new user → onboarding
+  //       }
+  //       // No need to push if profile exists — already on Tabs
+  //     })
+  //     .catch(console.error);
+  // }, [session, router]);
 
-  // Wait for session to load
-  if (isLoading) {
-    return null;
-  }
+  // // Wait for session to load
+  // if (isLoading) {
+  //   return null;
+  // }
 
-  // Redirect to auth if user is not logged in
-  if (!session) {
-    return <Redirect href="/auth" />;
-  }
+  // // Redirect to auth if user is not logged in
+  // if (!session) {
+  //   return <Redirect href="/(tabs)" />;
+  // }
 
   return (
     <Tabs

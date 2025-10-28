@@ -35,6 +35,7 @@ export default function HomeScreen() {
   const { profile } = useProfile();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [workoutData, setWorkoutData] = useState(workoutSplit);
+  
 
   useEffect(() => {
     const loadWorkoutData = async () => {
