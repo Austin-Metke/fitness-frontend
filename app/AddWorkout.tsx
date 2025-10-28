@@ -62,7 +62,7 @@ export default function AddWorkoutScreen() {
     const fetchExercises = async () => {
       setLoading(true);
       try {
-        const exercises = await getExercises({ name: searchTerm });
+        const exercises = await getExercises();
         setExercises(exercises);
       } catch (error) {
         console.error('Error fetching exercises:', error);
