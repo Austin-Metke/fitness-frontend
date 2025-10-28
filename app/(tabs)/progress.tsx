@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '@/types/navigation';
 import { useProgress } from '@/hooks/useProgress';
+import axios from 'axios';
 
 export default function ProgressScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -84,6 +85,18 @@ export default function ProgressScreen() {
     </ThemedView>
   );
 }
+
+export const getExercises = async (exerciseSearch: string) => {
+  try {
+    const response = await axios.get(`http://10.0.2.2:8080/api/exercises/exercise`, {
+      params: { name: exerciseSearch },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching exercises:", error);
+    throw error;
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
