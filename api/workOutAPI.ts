@@ -4,7 +4,7 @@ import axios from 'axios';
 //function for grabbing exercises
 export const getExercises = async (exerciseSearch: string) => {
   try {
-    const response = await axios.get(`http://10.0.2.2:8080/api/exercises/exercise`, {
+    const response = await axios.get(`https://cst438-project02-c9c0086736bb.herokuapp.com/api/exercises/exercise`, {
       params: { name: exerciseSearch },
     });
     return response.data;
