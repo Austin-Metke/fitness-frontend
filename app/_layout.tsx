@@ -34,11 +34,16 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style = {styles.container}>
       <SQLiteProvider databaseName='flexzone_database' onInit={initDB} >
-        <ProgressProvider>
-          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <Slot />
-          </ThemeProvider>
-        </ProgressProvider>
+
+          <ProgressProvider>
+            
+              <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+                <SessionProvider>
+                <Slot />
+                </SessionProvider>
+              </ThemeProvider>
+          </ProgressProvider>
+        
       </SQLiteProvider>
     </GestureHandlerRootView>
     
