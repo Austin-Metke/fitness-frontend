@@ -8,35 +8,32 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useSession } from '@/hooks/ctx';
 import { getProfile } from '@/db/profile';
-//import { ProfilePic } from '@/components/ProfilePic';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  // const { session, isLoading } = useSession();
+  const { session, isLoading } = useSession(); // ✅ move inside component
 
-  // // Fix Hook order: always call hooks at the top
-  // useEffect(() => {
-  //   if (!session) return; // skip effect if not logged in
+  useEffect(() => {
+    if (!session) return; // skip effect if not logged in
 
-  //   getProfile(session)
-  //     .then((res) => {
-  //       if (!res) {
-  //         router.push('/onboarding'); // new user → onboarding
-  //       }
-  //       // No need to push if profile exists — already on Tabs
-  //     })
-  //     .catch(console.error);
-  // }, [session, router]);
+    getProfile(session)
+      .then((res) => {
+        if (!res) {
+          router.push('/onboarding'); // new user → onboarding
+        }
+      })
+      .catch(console.error);
+  }, [session]);
 
-  // // Wait for session to load
-  // if (isLoading) {
-  //   return null;
-  // }
+  // Wait for session to load
+  if (isLoading) {
+    return null;
+  }
 
-  // // Redirect to auth if user is not logged in
-  // if (!session) {
-  //   return <Redirect href="/(tabs)" />;
-  // }
+  // Redirect to auth if user is not logged in
+  if (!session) {
+    return <Redirect href="/auth" />; // or whatever your login route is
+  }
 
   return (
     <Tabs
@@ -69,15 +66,16 @@ export default function TabLayout() {
         name="progress"
         options={{
           title: 'Progress',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="chart.line.uptrend.xyaxis.circle" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="chart.line.uptrend.xyaxis.circle" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-          //tabBarIcon: ({ color, size }) => <ProfilePic tab size={size} color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.crop.circle" color={color} />,
         }}
       />
     </Tabs>
